@@ -1,0 +1,38 @@
+Package: cryptoTax
+Title: Report Crypto Taxes (Canada Only)
+Version: 0.0.2
+URL: https://cryptoltruist.github.io/cryptoTax/
+BugReports: https://github.com/cryptoltruist/cryptoTax/issues
+Authors@R: 
+    person(given = "Mr.",
+           family = "Cryptoltruist",
+           role = c("aut", "cre"),
+           email = "mr.cryptoltruist@gmail.com")
+Description: Helps calculate crypto taxes in R. First, by allowing 
+  you to format .CSV files from various exchanges to one
+  large data frame of organized transactions. Second, by allowing you to 
+  calculate your Adjusted Cost Base (ACB), ACB per share, and 
+  realized and unrealized capital gains/losses. Third, by calculating
+  revenues gained from staking, interest, airdrops, etc. Fourth, by 
+  calculating superficial losses as well. *Disclaimer: This is not financial advice. 
+  Use at your own risks. There are no guarantees whatsoever in relation 
+  to the use of this package. Please consult a tax professional as necessary*.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Config/testthat/edition: 3
+Imports: dplyr, lubridate, priceR, curl, ggplot2, ggrepel,
+        RColorBrewer, tidyr, crypto2, stringr, rstudioapi, rlang,
+        tidyselect, progress,
+Suggests: spelling, usethis, flextable, rmarkdown, testthat (>= 3.0.0),
+        knitr, covr
+Depends: R (>= 2.10)
+VignetteBuilder: knitr
+Language: en-US
+NeedsCompilation: no
+Packaged: 2023-02-18 01:49:19 UTC; coding
+Author: Mr. Cryptoltruist [aut, cre]
+Maintainer: Mr. Cryptoltruist <mr.cryptoltruist@gmail.com>
+Repository: CRAN
+Date/Publication: 2023-02-20 11:30:03 UTC

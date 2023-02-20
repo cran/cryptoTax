@@ -1,0 +1,182 @@
+---
+title: "Full Crypto Tax Report for Tax Year `r tax.year`"
+author: "`r person.name`"
+date: "Date: `r format(Sys.time(), '%c')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.width=6.5, fig.height=6.5, 
+                      dpi=300, out.width="60%")
+```
+
+### Summary
+
+```{r summary}
+
+report.info$report.summary[-1,] %>% 
+  tax_table()
+
+```
+
+```{r values, echo=FALSE}
+# ((value.today + net.numeric + revenues) / sum(ACB.list$ACB) - 1) * 100
+value <- round(((format_dollars(report.info$report.summary$Amount[6], "numeric") + 
+          last(report.info$report.overview$net) + 
+          last(report.info$table.revenues$total.revenues)) / 
+         last(report.info$report.overview$total.cost) - 1) * 100, 2)
+
+value2 <- round(last(report.info$report.overview$net) + last(
+  report.info$report.overview$unrealized.net), 2)
+
+```
+
+All time up in percentage (including all unrealized gains and revenues received) is `r paste0(value, "%")`. In absolute dollars, that is `r paste0(value2 + last(report.info$table.revenues$total.revenues))` CAD.
+
+### Overview
+
+```{r overview}
+
+# Attempting to add header rows midway of the table
+
+# report.overview2 <- report.overview
+
+# report.overview2$date.last <- as.character(report.overview2$date.last)
+
+# report.overview2 <- rbind(report.overview2, names(report.overview2))
+
+# Define our new custom function
+#add_row2 <- function(.data, x, ...) {
+#  add_row(
+#    .data, 
+#    tibble(!!!setNames(x, names(.data))),
+#    ...
+#  )
+#}
+
+# Add the header row
+#report.overview2 %>%
+#  mutate(across(everything(),
+#                as.character)) %>%
+#  add_row2(names(report.overview2),
+#           .before = 12) -> temp.table
+
+#temp.table %>%
+#  flextable() %>%
+#  bold(i = nrow(temp.table)) %>%
+#  bold(i = nrow(temp.table)/2+1) %>%
+#  bold(part = "header") %>%
+#  hline(i = nrow(temp.table)) %>%
+#  hline(i = nrow(temp.table)-1) %>%
+#  hline(i = nrow(temp.table)/2+1) %>%
+#  hline(i = nrow(temp.table)/2) %>%
+#  colformat_double(j = "total.quantity", digits = 7)
+
+sub <- report.info$report.overview %>% 
+  select(date.last:net, currency2)
+
+# Make table
+sub %>% 
+  tax_table(type = 2)
+
+```
+
+### Current Value
+
+```{r current value}
+
+sub2 <- report.info$report.overview %>% 
+  select(currency, cost.share, total.cost, rate.today:currency2)
+
+sub2 %>% 
+  tax_table(repeat.header = TRUE)
+
+```
+
+### Superficial losses
+
+```{r sup loss}
+
+report.info$sup.losses %>%
+  tax_table(report.info, type = 3)
+
+```
+
+### Revenues
+
+```{r revenues}
+
+report.info$table.revenues %>% 
+  tax_table(repeat.header = TRUE)
+
+```
+
+### Revenue Sources by **Exchanges**
+
+```{r pie_exchange}
+report.info$pie_exchange
+```
+
+### Revenue Sources by **Types**
+
+```{r pie_revenue}
+report.info$pie_revenue
+```
+
+# Important Tax Information for Your Accountant
+<br/><br/>
+
+### Capital gains
+
+<font size = 4>Your **capital gains** for `r tax.year` are **\$`r gains`**, whereas your **capital losses** are **\$`r gsub("-", "", losses)`** (net = **\$`r net`**).
+
+> Those are only taxed at 50%. Your **capital losses** are calculated as **total capital losses** (**\$`r gsub("-", "", tot.sup.loss + sup.losses.total)`**) - **superficial losses** (**\$`r gsub("-", "", sup.losses.total)`**) = **actual capital losses** (**\$`r round(as.numeric(gsub("-", "", tot.sup.loss)), 2)`**).
+
+Your total "proceeds" *for the coins you sold at a **profit*** is: **\$`r format_dollars(report.info$proceeds$proceeds[1])`** (aggregated for all coins). Your total ACB *for the coins you sold at a profit* is: **\$`r format_dollars(report.info$proceeds$ACB.total[1])`** (average of all coins). The difference between the two is your capital gains: **\$`r format_dollars(report.info$proceeds$proceeds[1] - report.info$proceeds$ACB.total[1])`**.
+
+Your total "proceeds" (adjusted for superficial gains) *for the coins you sold at a **loss*** is: **\$`r format_dollars(report.info$proceeds$proceeds[2])`** (aggregated for all coins). Your total ACB *for the coins you sold at a loss* is: **\$`r format_dollars(report.info$proceeds$ACB.total[2])`** (average of all coins). The difference between the two is your capital losses: **\$`r gsub("-", "", format_dollars(report.info$proceeds$proceeds[2] - report.info$proceeds$ACB.total[2]))`**.
+
+
+### Income
+
+Your **total taxable income** from crypto (from interest & staking exclusively) for `r tax.year` is **\$`r total.income`**, which is considered 100% taxable income.
+
+> *Note that per default, this amount excludes revenue from credit card cashback because it is considered rebate, not income, so considered acquired at the fair market value at the time of reception.* The income reported above also excludes other forms of airdrops and rewards (e.g., from Shakepay, Brave, Presearch), referrals, and promos, which are considered acquired at a cost of 0$ (and will thus incur a capital gain of 100% upon selling). Note that should you wish to give different tax treatment to the different transaction types, you can do so through the 'as.revenue' argument of the 'ACB' function. Mining rewards needs to be labelled individually in the files before using `format_ACB()`.
+
+### Total tax estimation
+
+In general, you can expect to pay tax on 50% (**\$`r net.50`**) of your net capital gains + 100% of your taxable income (**\$`r total.income`**), for a total of **\$`r total.tax`**. This amount will be taxed based on your tax bracket.
+
+> Note that if your capital gains are net negative for the current year, any excess capital losses can be deferred to following years. However, capital losses have to be used in the same year first if you have outstanding capital gains.
+
+### Form T1135
+
+If your **total acquisition cost** has been greater than **$100,000** at any point during `r tax.year` (it is **\$`r total.cost`** at the time of this report), you will need to fill **form T1135** (*Foreign Income Verification Statement*). Form T1135 is [available for download](https://www.canada.ca/content/dam/cra-arc/formspubs/pbg/t1135/t1135-fill-19e.pdf), and more information about it can be found on the [CRA website](https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/information-been-moved/foreign-reporting/questions-answers-about-form-t1135.html). 
+
+### Summary table
+
+Here is a summary of what you need to enter on which lines of your income tax:
+
+```{r}
+
+report.info$tax.box %>% 
+  tax_table
+
+```
+
+
+### Other situations
+
+If applicable, you may also need to enter the following:
+
+> Interest expense on money borrowed to purchase investments for the purpose of gaining or producing income is tax-deductible. Use line 22100 (was line 221) of the personal income tax return, after completion of Schedule 4 (federal).
+
+
+
+</font>
+
+<br/><br/>
+<br/><br/>
+
+
+.......................................................................................................................................................................................................

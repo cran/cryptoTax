@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Tax treatments and decisions</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Tax treatments and decisions</h1>
+
+
+
+<p><font size="3"></p>
+<p>The following section describes the tax decisions and behaviours of
+<code>cryptoTax</code> to offer maximal transparency. Usually, each
+section declaring a particular behaviour or decision is followed by a
+documentation section, which are block quotes taken from the cited
+sources. They have not been modified, or only for clarity when
+necessary.</p>
+<div id="trades-transaction-fees" class="section level1">
+<h1>Trades &amp; transaction fees</h1>
+<ul>
+<li>Transaction fees are integrated in ACB as per regular ACB
+calculations
+<ul>
+<li>(<a href="https://www.adjustedcostbase.ca/blog/how-to-calculate-adjusted-cost-base-acb-and-capital-gains/" class="uri">https://www.adjustedcostbase.ca/blog/how-to-calculate-adjusted-cost-base-acb-and-capital-gains/</a>)</li>
+</ul></li>
+<li>Trading fees between two coins are usually integrated to the buy
+side rather than the sell side
+<ul>
+<li>There is no documentation on this but it needs to be integrated on
+either side, and it makes sense to integrate to the buy side.</li>
+</ul></li>
+<li>For coin-to-coin trades, the price of the purchased coin is fetched
+from coinmarketcap, and it is reused as the price of the sold coin (when
+not available from the exchange itself). In this way, the price from the
+purchase and the sale match (using different spot rates from the two
+coins would prevent the prices from matching).</li>
+</ul>
+<div id="trading-fees-paid-in-third-currency" class="section level2">
+<h2>Trading fees paid in third currency</h2>
+<p>Paying trading fees in a third currency (e.g., BNB or CRO) is
+considered a sale at the fair market value of the coin quantity. This
+fair market value also gets added to the ACB of the original trade.</p>
+</div>
+<div id="documentation" class="section level2">
+<h2>Documentation</h2>
+</div>
+<div id="cointracking" class="section level2">
+<h2>CoinTracking</h2>
+<blockquote>
+<p>Any fee that is paid in a third currency (i.e. a coin that is not
+part of either the sell or the buy) is not deducted from the total
+balance. A common example is BNB on Binance. In order to correct your
+third coin balance in the portfolio, you need to create an additional
+transaction as OTHER FEE for the fee.</p>
+<p>(<a href="https://cointracking.freshdesk.com/en/support/solutions/articles/29000007202-entering-fees" class="uri">https://cointracking.freshdesk.com/en/support/solutions/articles/29000007202-entering-fees</a>)</p>
+</blockquote>
+</div>
+<div id="person-on-reddit" class="section level2">
+<h2>Person on reddit</h2>
+<blockquote>
+<p>By using your CRO or BNB to pay the fees, you have triggered a
+disposition that will give rise to a capital gain or loss. The market
+value of the fee is your proceeds of disposition for the CRO/BNB, which
+also gets added to the ACB of whatever coin you bought.</p>
+<p>(<a href="https://www.reddit.com/r/BitcoinCA/comments/rmjz3e/is_it_a_tax_event_to_pay_trading_fees_with" class="uri">https://www.reddit.com/r/BitcoinCA/comments/rmjz3e/is_it_a_tax_event_to_pay_trading_fees_with</a>)</p>
+</blockquote>
+</div>
+</div>
+<div id="fair-market-value" class="section level1">
+<h1>Fair market value</h1>
+<ul>
+<li>If the spot rate is not available from the exchange, it is scraped
+from coinmarketcap (through the <code>crypto2</code> package) as the
+average of open and close (rather than of high and low). When converting
+from USD to CAD, the rate is obtained through the <code>priceR</code>
+package (e.g., through the European Central Bank Statistical Data
+Warehouse).</li>
+</ul>
+</div>
+<div id="superficial-losses" class="section level1">
+<h1>Superficial losses</h1>
+<p>Superficial losses (+/- 30 days from purchase) are deducted from
+total capital losses (including those from gas fees).</p>
+<p>New coins obtained through airdrops and the like, or in the form of
+interest or staking, is not treated as buying in the context of
+superficial loss.</p>
+<p>When there is a superficial loss on a quantity greater than the
+amount bought within 60 days, or the amount left at the end of the 60
+days, only the amount bought/left is counted as superficial; any excess
+is counted as valid capital loss.</p>
+<p>If the sale would bring the total quantity of the share/coin to zero
+and is not rebought within 30 days, the full loss is considered valid
+and not superficial.</p>
+<div id="documentation-1" class="section level2">
+<h2>Documentation</h2>
+</div>
+<div id="taxtips.ca" class="section level2">
+<h2>Taxtips.ca</h2>
+<blockquote>
+<p>The superficial loss is added to the adjusted cost base (ACB) of the
+repurchased or substitute shares. When the repurchased or substitute
+shares are sold, the loss can be claimed.</p>
+<p>(<a href="https://www.taxtips.ca/personaltax/investing/taxtreatment/superficial-losses-and-other-disallowed-losses.htm" class="uri">https://www.taxtips.ca/personaltax/investing/taxtreatment/superficial-losses-and-other-disallowed-losses.htm</a>)</p>
+<p>If you have capital losses that exceed capital gains in the current
+year, you can (but don’t have to) carry back the losses to any of the 3
+preceding taxation years to be deducted against capital gains in those
+years. Capital losses can also be carried forward indefinitely.</p>
+<p>How about when shares are bought, and then fully sold immediately
+after? Can a capital loss be claimed in this case? As long as all the
+shares are sold, and you don’t repurchase the shares within the 30-day
+period following the sale’s settlement date, you can claim a capital
+loss. Remember that two conditions must apply for the superficial loss
+rule: shares must be bought within the 61-day period, AND, some shares
+must still be owned at the end of the period. In the case where all
+shares are sold (and nothing’s repurchased) the superficial loss rule
+does not apply as long as you don’t own any shares at the end of the
+61-day period.</p>
+<p>(<a href="https://www.taxtips.ca/filing/capital-losses.htm" class="uri">https://www.taxtips.ca/filing/capital-losses.htm</a>)</p>
+</blockquote>
+</div>
+<div id="adjustedcostbase.ca" class="section level2">
+<h2>adjustedcostbase.ca</h2>
+<blockquote>
+<p><strong>Avoid Headaches by Deferring the Entire Capital Loss for
+Simplicity</strong></p>
+<p>The conditions for partially applying the superficial loss rule for
+partial dispositions provide an advantage to Canadian investors. Instead
+of using a strict interpretation of the superficial loss rule in these
+kinds of cases that denies losses in full, the CRA allows investors to
+partially claim the loss.</p>
+<p>But you’re not obligated to partially claim the loss; you can opt for
+the entire loss to be denied (and carried forward in most cases). If the
+loss is relatively small it may not be worth the headache of performing
+these calculations to determine the partially allowable loss. And
+remember that when the superficially loss rule denies a capital loss,
+the amount of the capital loss can usually be added to the ACB of the
+reacquired shares, so that the loss is effectively carried forward as
+opposed to being permanently denied.</p>
+<p>(<a href="https://www.adjustedcostbase.ca/blog/applying-the-superficial-loss-rule-for-a-partial-disposition-of-shares/" class="uri">https://www.adjustedcostbase.ca/blog/applying-the-superficial-loss-rule-for-a-partial-disposition-of-shares/</a>)</p>
+</blockquote>
+</div>
+</div>
+<div id="superficial-gains" class="section level1">
+<h1>Superficial gains</h1>
+<p>There is no such thing as superficial gains.</p>
+<div id="documentation-2" class="section level2">
+<h2>Documentation</h2>
+</div>
+<div id="adjustedcostbase.ca-1" class="section level2">
+<h2>adjustedcostbase.ca</h2>
+<blockquote>
+<p>Since the superficial loss rule denies capital losses under certain
+circumstances, you might ask, can capital gains be avoided in certain
+cases? For example, if you sell shares and realize a capital gain, but
+immediately repurchase the shares, can you call this a “superficial
+gain” and defer the capital gain? The answer is no: you cannot defer the
+capital gain and there is no such thing as a “superficial gain.” The
+capital gain is taxable immediately in the current tax year, even if the
+shares are repurchased within 30 days.</p>
+<p>(<a href="https://www.adjustedcostbase.ca/blog/what-is-the-superficial-loss-rule/" class="uri">https://www.adjustedcostbase.ca/blog/what-is-the-superficial-loss-rule/</a>)</p>
+</blockquote>
+</div>
+</div>
+<div id="gasnetwork-fees" class="section level1">
+<h1>Gas/network fees</h1>
+<p>We adopt a <strong>conservative</strong> approach and treat network
+fees as a disposition at the fair market value of the coins at the time
+of the transaction (this triggers a capital gain/loss tax event).</p>
+<div id="documentation-3" class="section level2">
+<h2>Documentation</h2>
+</div>
+<div id="cointracking-1" class="section level2">
+<h2>CoinTracking</h2>
+<blockquote>
+<p>Every transaction of a coin, if it is a buy, a donation, spend or fee
+has a taxable impact because the coin did increase or decrease in value
+during the holding period between buy and the time when you loose the
+ownership of the coin. (<a href="https://cointracking.freshdesk.com/en/support/solutions/articles/29000007202-entering-fees" class="uri">https://cointracking.freshdesk.com/en/support/solutions/articles/29000007202-entering-fees</a>)</p>
+</blockquote>
+</div>
+<div id="koinly" class="section level2">
+<h2>Koinly</h2>
+<blockquote>
+<p>Most exchanges will charge you a transfer fee to move your crypto. If
+you pay this transfer fee in CAD or another fiat currency - this is tax
+free. But most of the time, you’ll pay these transfer fees in crypto.
+Spending crypto is a disposition, so it’s a taxable event and subject to
+Capital Gains Tax. This means if the price of your asset has increased
+since you bought it, when you then spend crypto to transfer it - you’ll
+have a capital gain. The CRA doesn’t have guidance on whether transfer
+fees are an allowable cost - so we don’t know if you can add them to
+your cost basis under the adjusted cost basis rules. But it’s unlikely
+that transfer fees are tax deductible. Therefore the fees are taken into
+account for gain calculation. A value increase is a a taxable benefit
+(e.g. you if you need less amount of a coin to pay the fee).</p>
+<p>(<a href="https://koinly.io/guides/crypto-tax-canada" class="uri">https://koinly.io/guides/crypto-tax-canada</a>)</p>
+<p>Sometimes when you transfer assets between wallets, you’ll pay a gas
+fee. However, the Capital Gains Tax guidance in most countries is quite
+clear that you can only add fees associated with acquiring or disposing
+of an asset to your cost basis. You’re not doing this when you make a
+transfer. There isn’t any clear guidance on this yet from any tax
+office. So you can choose to take a conservative or a more aggressive
+approach to your crypto taxes.</p>
+<ul>
+<li>A <strong>conservative</strong> approach would be to treat this as a
+taxable event. You’re spending ETH - like on a good or a service - so
+it’s subject to Capital Gains Tax.</li>
+<li>A more <strong>measured</strong> approach is to claim it as spent,
+but not recognize any capital gain or loss from the transaction.</li>
+<li>Finally, an <strong>aggressive</strong> approach would be to add it
+to your cost basis.</li>
+</ul>
+<p>We recommend a conservative approach to transfer fees as other
+approaches may not stand up to scrutiny by tax authorities.</p>
+<p>(<a href="https://koinly.io/blog/what-are-gas-fees-and-how-are-they-taxed" class="uri">https://koinly.io/blog/what-are-gas-fees-and-how-are-they-taxed</a>)</p>
+</blockquote>
+</div>
+<div id="tokentax" class="section level2">
+<h2>TokenTax</h2>
+<blockquote>
+<p>There are multiple ways to approach tax treatment of these fees,
+ranging from conservative to aggressive. Please note that we recommend
+the conservative approach.</p>
+<ul>
+<li><strong>Conservative</strong>: Treat ETH fees spent in this instance
+as taxable sales, as if you had spent ETH on a good or service.</li>
+<li><strong>Medium</strong>: Claim the Ethereum spent on fees as removed
+from your holdings, but don’t recognize a capital gain or loss.</li>
+<li><strong>Aggressive</strong>: Claim ETH as a sale for 0 USD, claiming
+a capital loss on ETH spent. You could also potentially add ETH transfer
+fees to your cost basis. However, the IRS could argue that these
+transfers were not necessary for the subsequent ETH sale to take place,
+thus this is a more contentious tax standpoint.</li>
+</ul>
+<p>(<a href="https://tokentax.co/blog/are-ethereum-gas-fees-tax-deductible" class="uri">https://tokentax.co/blog/are-ethereum-gas-fees-tax-deductible</a>)</p>
+</blockquote>
+</div>
+<div id="cointracker" class="section level2">
+<h2>CoinTracker</h2>
+<blockquote>
+<p>Gas fees on transfers can be added back to the basis of the
+token.</p>
+<p>(<a href="https://www.cointracker.io/blog/how-to-claim-tax-benefits-on-your-cryptocurrency-gas-fees/" class="uri">https://www.cointracker.io/blog/how-to-claim-tax-benefits-on-your-cryptocurrency-gas-fees/</a>)</p>
+</blockquote>
+</div>
+<div id="metricscpa-cpa-from-reddit" class="section level2">
+<h2>MetricsCPA (CPA from Reddit)</h2>
+<blockquote>
+<p><strong>Q:</strong> Would you also add transfer fees to the cost
+basis ? e.g. when transferring a coin from an exchange to a wallet.</p>
+<p><strong>A:</strong> Yes, its reasonable to include these, as they are
+part of your costs.</p>
+<p>(<a href="https://www.reddit.com/r/BitcoinCA/comments/jwmn6h/comment/gcsn76a/?utm_source=share&amp;utm_medium=web2x&amp;context=3" class="uri">https://www.reddit.com/r/BitcoinCA/comments/jwmn6h/comment/gcsn76a/?utm_source=share&amp;utm_medium=web2x&amp;context=3</a>)</p>
+</blockquote>
+</div>
+</div>
+<div id="foreign-income" class="section level1">
+<h1>Foreign income</h1>
+<p>Here, revenue from crypto is considered foreign income, because it is
+localized on a global ledger (the blockchain), so not technically in
+Canada. For this reason, if one’s total acquisition cost has been
+greater than $100,000 at any point during the tax year, one needs to
+fill form T1135.</p>
+<div id="documentation-4" class="section level2">
+<h2>Documentation</h2>
+</div>
+<div id="taxtips.ca-1" class="section level2">
+<h2>Taxtips.ca</h2>
+<blockquote>
+<p>It is probably wise to report your cryptocurrency on a T1135, if it
+puts you over the $100,000, according to an article by Jamie Golombek,
+CPA, CA, CFP, CLU, TEP. It could be considered intangible property
+located outside Canada. It doesn’t cost anything to report it, and would
+save very expensive penalties that would be incurred if it is not
+reported but later deemed by CRA to be reportable.</p>
+<p>(<a href="https://www.taxtips.ca/filing/foreign-asset-reporting.htm" class="uri">https://www.taxtips.ca/filing/foreign-asset-reporting.htm</a>)</p>
+</blockquote>
+</div>
+<div id="intuit" class="section level2">
+<h2>Intuit</h2>
+<blockquote>
+<p>The CRA views bitcoin as “specified foreign property” under Section
+233.3 of the Income Tax Act.</p>
+<p>(<a href="https://quickbooks.intuit.com/ca/resources/taxes/how-to-claim-cryptocurrency-on-your-income-tax-in-canada/" class="uri">https://quickbooks.intuit.com/ca/resources/taxes/how-to-claim-cryptocurrency-on-your-income-tax-in-canada/</a>)</p>
+</blockquote>
+</div>
+</div>
+<div id="taxable-income" class="section level1">
+<h1>Taxable income</h1>
+<p>Here, revenue from interest or staking (as well as mining) is
+considered taxable income because they are similar in nature to revenue
+from investment interest (like at the bank).</p>
+<p>Airdrops, rewards, referrals, promos, are considered a purchase at 0$
+ACB (including Shakepay, Brave, and Presearch).</p>
+<p>Similarly to credit card cashback, discounts are considered a
+purchase at FMV (fair market value) at the time of reception, but not as
+income and they do not trigger a tax event. This includes certain
+services from Crypto.com:</p>
+<ul>
+<li>Prepaid card cashback (including Spotify, Netflix, Amazon Prime
+“reimbursements”)</li>
+<li>“Pay” service for rewards on:
+<ul>
+<li>topping-up phones</li>
+<li>internet purchases</li>
+<li>gift card purchases</li>
+<li>(rewards for transferring CRO to a friend is not considered rebate,
+but is still not taxable income like other rewards)</li>
+</ul></li>
+<li>Exchange discount/rewards on trading when staking CRO on the
+exchange (same with Binance, etc.)</li>
+</ul>
+<div id="documentation-5" class="section level2">
+<h2>Documentation</h2>
+</div>
+<div id="yahoo-finance" class="section level2">
+<h2>Yahoo Finance</h2>
+<blockquote>
+<p>The majority of Canadian consumers don’t have to pay taxes on their
+credit card rewards. As long as you’re earning points, miles, or cash
+back for personal purchases (i.e., not for business purchases), the CRA
+will look at them as discounts and coupons, not income. Much like you
+don’t report savings from grocery coupons, you won’t report your credit
+card rewards on your tax filing.</p>
+<p>(<a href="https://ca.style.yahoo.com/credit-card-rewards-taxable-183034394.html" class="uri">https://ca.style.yahoo.com/credit-card-rewards-taxable-183034394.html</a>)</p>
+</blockquote>
+</div>
+<div id="cra" class="section level2">
+<h2>CRA</h2>
+<blockquote>
+<p>Is it business income or capital gain? The income tax treatment for
+cryptocurrency […] is different depending on whether their […]
+activities are a personal activity (a hobby) or a business activity. […]
+If a hobby is pursued in a <em>sufficiently commercial and businesslike
+way</em>, it can be considered a business activity and will be taxed as
+such.</p>
+<p>(<a href="https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/compliance/digital-currency/cryptocurrency-guide.html" class="uri">https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/compliance/digital-currency/cryptocurrency-guide.html</a>)</p>
+</blockquote>
+</div>
+<div id="koinly-1" class="section level2">
+<h2>Koinly</h2>
+<blockquote>
+<p>Some countries like Canada and Germany see receiving an airdrop as a
+tax free event, but this is the exception rather than the rule…. The
+Canada Revenue Agency doesn’t view airdrops as a type of income. (<a href="https://koinly.io/blog/crypto-airdrop-tax" class="uri">https://koinly.io/blog/crypto-airdrop-tax</a>)</p>
+</blockquote>
+</div>
+<div id="cointracker-1" class="section level2">
+<h2>CoinTracker</h2>
+<blockquote>
+<p>For airdrops and hard forks, unlike the US where guidance is unclear,
+in Canada the cost basis is zero for these coins. Therefore when the
+coins are disposed the entire proceeds are considered capital gains (for
+individuals) or income (for businesses).</p>
+<p><a href="https://support.cointracker.io/hc/en-us/articles/4413071347857" class="uri">https://support.cointracker.io/hc/en-us/articles/4413071347857</a></p>
+</blockquote>
+</div>
+<div id="coinpanda" class="section level2">
+<h2>CoinPanda</h2>
+<blockquote>
+<p>In most cases, a business activity needs to involve repetitive
+actions over time. … If your mining is just a personal hobby, you will
+only pay capital gains tax when you later sell (dispose of) the received
+coins. Because you didn’t pay anything for the coins originally, the
+cost basis should be considered as zero so that your capital gains are
+equal to the market value (in CAD) at the time when you sell the coins
+in the future. … The Canadian Revenue Agency has not released specific
+guidance for staking of cryptocurrency. Because staking is similar in
+nature to mining of cryptocurrencies, the safest approach is to treat
+received coins from staking in a similar fashion to mining. …</p>
+<p>The CRA has not issued specific guidance to the tax treatment of
+cryptocurrency airdrops, but a safe approach is to pay capital gains tax
+when you later decide to sell the coins. Similar to crypto received from
+mining, you should assume a cost basis equal to zero because you did not
+pay anything to acquire the coins.</p>
+<p>(<a href="https://coinpanda.io/guides/crypto-taxes-canada/" class="uri">https://coinpanda.io/guides/crypto-taxes-canada/</a>)</p>
+</blockquote>
+</div>
+<div id="metricscpa-cpa-from-reddit-1" class="section level2">
+<h2>MetricsCPA (CPA from Reddit)</h2>
+<blockquote>
+<p><strong>Q:</strong> How to treat Shakepay sats?</p>
+<p><strong>A:</strong> In that case, it would be a cost basis of 0.
+Shaking your phone does not constitute earning income. So say you sell
+it all for $10, that $10 is added to your income at $5 (cap gains 50%)
+and then taxed. It would be a sale for $10 with a cost basis of 0.</p>
+<p>(<a href="https://www.reddit.com/r/BitcoinCA/comments/jwmn6h/comment/gi3fe3l/?utm_source=share&amp;utm_medium=web2x&amp;context=3" class="uri">https://www.reddit.com/r/BitcoinCA/comments/jwmn6h/comment/gi3fe3l/?utm_source=share&amp;utm_medium=web2x&amp;context=3</a>)</p>
+</blockquote>
+</div>
+<div id="tsbcpa-cpa-from-reddit" class="section level2">
+<h2>TSBCPA (CPA from Reddit)</h2>
+<blockquote>
+<p>I would love to be able to shed some further light on this topic,
+however, there are a few factors at play that make it difficult to do
+so. Currently, these areas have not received any specific CRA guidance
+so I refrain from providing any general guidance on these matters. The
+reasoning for this is that there can be risks involved depending on how
+aggressive or conservative you are with reporting the crypto received.
+Treating it as income when received is usually the conservative bet;
+adding it with a cost base of $0 can be more aggressive.</p>
+<p>There will be a ton of different/varying information out there on
+this from individuals and accountants. […] In general, if you want to
+remain very conservative (which may not always be the best approach),
+then treating things as income when received will achieve this. For
+staking rewards - we generally always recommend treating it as income
+when received.</p>
+<p>(<a href="https://www.reddit.com/r/BitcoinCA/comments/tvg6gc/accountants_of_reddit_please_help_clarify" class="uri">https://www.reddit.com/r/BitcoinCA/comments/tvg6gc/accountants_of_reddit_please_help_clarify</a>)</p>
+</blockquote>
+</div>
+</div>
+<div id="interest-expense-on-money-borrowed-to-purchase-investments" class="section level1">
+<h1>Interest expense on money borrowed to purchase investments</h1>
+<p>Generally, interest expense on money borrowed to purchase investments
+for the purpose of gaining or producing income is tax-deductible.</p>
+<div id="documentation-6" class="section level2">
+<h2>Documentation</h2>
+</div>
+<div id="taxtips.ca-2" class="section level2">
+<h2>Taxtips.ca</h2>
+<blockquote>
+<p>Interest and other deductible carrying charges are claimed as a
+deduction from income on line 22100 (was line 221) of the personal
+income tax return, after completion of Schedule 4 (federal).</p>
+<p>(<a href="https://www.taxtips.ca/personaltax/investing/interest-expense-on-money-borrowed-to-purchase-investments.htm" class="uri">https://www.taxtips.ca/personaltax/investing/interest-expense-on-money-borrowed-to-purchase-investments.htm</a>)</p>
+</blockquote>
+</div>
+<div id="cra-1" class="section level2">
+<h2>CRA</h2>
+<blockquote>
+<p>The flexible approach to tracing/linking borrowed money to eligible
+uses cannot be applied to the repayment of borrowed money where a single
+borrowing account (such as a <strong>line of credit</strong>, mortgage
+or loan) is used for eligible and ineligible purposes. In the CRA’s
+view, any repayment of the principal portion of a borrowing would reduce
+the portions of the line of credit, mortgage or loan that are used for
+both eligible and ineligible purposes.</p>
+<p>The individual cannot allocate the repayment specifically to the
+ineligible portion of the borrowing. Instead, applying the original
+eligible use percentage to the balance, interest on $32,000 of the
+borrowed money (being 40% of $80,000) will be deductible.</p>
+<p>(<a href="https://www.canada.ca/en/revenue-agency/services/tax/technical-information/income-tax/income-tax-folios-index/series-3-property-investments-savings-plans/series-3-property-investments-savings-plan-folio-6-interest/income-tax-folio-s3-f6-c1-interest-deductibility.html" class="uri">https://www.canada.ca/en/revenue-agency/services/tax/technical-information/income-tax/income-tax-folios-index/series-3-property-investments-savings-plans/series-3-property-investments-savings-plan-folio-6-interest/income-tax-folio-s3-f6-c1-interest-deductibility.html</a>)</p>
+</blockquote>
+<p></font></p>
+<p><span class="math inline">\(~\)</span></p>
+<p><span class="math inline">\(~\)</span></p>
+<p><span class="math inline">\(~\)</span></p>
+<p><span class="math inline">\(~\)</span></p>
+<p><span class="math inline">\(~\)</span></p>
+<p><span class="math inline">\(~\)</span></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

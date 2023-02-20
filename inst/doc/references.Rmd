@@ -1,0 +1,263 @@
+---
+title: "Tax treatments and decisions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tax treatments and decisions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<font size = 3>
+
+The following section describes the tax decisions and behaviours of `cryptoTax` to offer maximal transparency. Usually, each section declaring a particular behaviour or decision is followed by a documentation section, which are block quotes taken from the cited sources. They have not been modified, or only for clarity when necessary.
+
+# Trades & transaction fees
+
+-   Transaction fees are integrated in ACB as per regular ACB calculations
+    -   (https://www.adjustedcostbase.ca/blog/how-to-calculate-adjusted-cost-base-acb-and-capital-gains/)
+-   Trading fees between two coins are usually integrated to the buy side rather than the sell side
+    -   There is no documentation on this but it needs to be integrated on either side, and it makes sense to integrate to the buy side.
+-   For coin-to-coin trades, the price of the purchased coin is fetched from coinmarketcap, and it is reused as the price of the sold coin (when not available from the exchange itself). In this way, the price from the purchase and the sale match (using different spot rates from the two coins would prevent the prices from matching).
+
+## Trading fees paid in third currency
+
+Paying trading fees in a third currency (e.g., BNB or CRO) is considered a sale at the fair market value of the coin quantity. This fair market value also gets added to the ACB of the original trade.
+
+## Documentation
+
+## CoinTracking
+
+> Any fee that is paid in a third currency (i.e. a coin that is not part of either the sell or the buy) is not deducted from the total balance. A common example is BNB on Binance. In order to correct your third coin balance in the portfolio, you need to create an additional transaction as OTHER FEE for the fee.
+>
+> (https://cointracking.freshdesk.com/en/support/solutions/articles/29000007202-entering-fees)
+
+## Person on reddit
+
+> By using your CRO or BNB to pay the fees, you have triggered a disposition that will give rise to a capital gain or loss. The market value of the fee is your proceeds of disposition for the CRO/BNB, which also gets added to the ACB of whatever coin you bought.
+>
+> (https://www.reddit.com/r/BitcoinCA/comments/rmjz3e/is_it_a_tax_event_to_pay_trading_fees_with)
+
+# Fair market value
+
+-   If the spot rate is not available from the exchange, it is scraped from coinmarketcap (through the `crypto2` package) as the average of open and close (rather than of high and low). When converting from USD to CAD, the rate is obtained through the `priceR` package (e.g., through the European Central Bank Statistical Data Warehouse).
+
+# Superficial losses
+
+Superficial losses (+/- 30 days from purchase) are deducted from total capital losses (including those from gas fees).
+
+New coins obtained through airdrops and the like, or in the form of interest or staking, is not treated as buying in the context of superficial loss.
+
+When there is a superficial loss on a quantity greater than the amount bought within 60 days, or the amount left at the end of the 60 days, only the amount bought/left is counted as superficial; any excess is counted as valid capital loss.
+
+If the sale would bring the total quantity of the share/coin to zero and is not rebought within 30 days, the full loss is considered valid and not superficial.
+
+## Documentation
+
+## Taxtips.ca
+
+> The superficial loss is added to the adjusted cost base (ACB) of the repurchased or substitute shares. When the repurchased or substitute shares are sold, the loss can be claimed.
+>
+> (https://www.taxtips.ca/personaltax/investing/taxtreatment/superficial-losses-and-other-disallowed-losses.htm)
+>
+> If you have capital losses that exceed capital gains in the current year, you can (but don't have to) carry back the losses to any of the 3 preceding taxation years to be deducted against capital gains in those years. Capital losses can also be carried forward indefinitely.
+>
+> How about when shares are bought, and then fully sold immediately after? Can a capital loss be claimed in this case? As long as all the shares are sold, and you don't repurchase the shares within the 30-day period following the sale's settlement date, you can claim a capital loss. Remember that two conditions must apply for the superficial loss rule: shares must be bought within the 61-day period, AND, some shares must still be owned at the end of the period. In the case where all shares are sold (and nothing's repurchased) the superficial loss rule does not apply as long as you don't own any shares at the end of the 61-day period.
+>
+> (https://www.taxtips.ca/filing/capital-losses.htm)
+
+## adjustedcostbase.ca
+
+> **Avoid Headaches by Deferring the Entire Capital Loss for Simplicity**
+>
+> The conditions for partially applying the superficial loss rule for partial dispositions provide an advantage to Canadian investors. Instead of using a strict interpretation of the superficial loss rule in these kinds of cases that denies losses in full, the CRA allows investors to partially claim the loss.
+>
+> But you're not obligated to partially claim the loss; you can opt for the entire loss to be denied (and carried forward in most cases). If the loss is relatively small it may not be worth the headache of performing these calculations to determine the partially allowable loss. And remember that when the superficially loss rule denies a capital loss, the amount of the capital loss can usually be added to the ACB of the reacquired shares, so that the loss is effectively carried forward as opposed to being permanently denied.
+>
+> (https://www.adjustedcostbase.ca/blog/applying-the-superficial-loss-rule-for-a-partial-disposition-of-shares/)
+
+# Superficial gains
+
+There is no such thing as superficial gains.
+
+## Documentation
+
+## adjustedcostbase.ca
+
+> Since the superficial loss rule denies capital losses under certain circumstances, you might ask, can capital gains be avoided in certain cases? For example, if you sell shares and realize a capital gain, but immediately repurchase the shares, can you call this a "superficial gain" and defer the capital gain? The answer is no: you cannot defer the capital gain and there is no such thing as a "superficial gain." The capital gain is taxable immediately in the current tax year, even if the shares are repurchased within 30 days.
+>
+> (https://www.adjustedcostbase.ca/blog/what-is-the-superficial-loss-rule/)
+
+# Gas/network fees
+
+We adopt a **conservative** approach and treat network fees as a disposition at the fair market value of the coins at the time of the transaction (this triggers a capital gain/loss tax event).
+
+## Documentation
+
+## CoinTracking
+
+> Every transaction of a coin, if it is a buy, a donation, spend or fee has a taxable impact because the coin did increase or decrease in value during the holding period between buy and the time when you loose the ownership of the coin.
+> (https://cointracking.freshdesk.com/en/support/solutions/articles/29000007202-entering-fees)
+
+## Koinly
+
+> Most exchanges will charge you a transfer fee to move your crypto. If you pay this transfer fee in CAD or another fiat currency - this is tax free. But most of the time, you'll pay these transfer fees in crypto. Spending crypto is a disposition, so it's a taxable event and subject to Capital Gains Tax. This means if the price of your asset has increased since you bought it, when you then spend crypto to transfer it - you'll have a capital gain. The CRA doesn't have guidance on whether transfer fees are an allowable cost - so we don't know if you can add them to your cost basis under the adjusted cost basis rules. But it's unlikely that transfer fees are tax deductible. Therefore the fees are taken into account for gain calculation. A value increase is a a taxable benefit (e.g. you if you need less amount of a coin to pay the fee).
+>
+> (https://koinly.io/guides/crypto-tax-canada)
+>
+> Sometimes when you transfer assets between wallets, you'll pay a gas fee. However, the Capital Gains Tax guidance in most countries is quite clear that you can only add fees associated with acquiring or disposing of an asset to your cost basis. You're not doing this when you make a transfer. There isn't any clear guidance on this yet from any tax office. So you can choose to take a conservative or a more aggressive approach to your crypto taxes.
+>
+> - A **conservative** approach would be to treat this as a taxable event. You're spending ETH - like on a good or a service - so it's subject to Capital Gains Tax.
+> -   A more **measured** approach is to claim it as spent, but not recognize any capital gain or loss from the transaction.
+> -   Finally, an **aggressive** approach would be to add it to your cost basis.
+>
+> We recommend a conservative approach to transfer fees as other approaches may not stand up to scrutiny by tax authorities.
+>
+> (https://koinly.io/blog/what-are-gas-fees-and-how-are-they-taxed)
+
+## TokenTax
+
+> There are multiple ways to approach tax treatment of these fees, ranging from conservative to aggressive. Please note that we recommend the conservative approach.
+>
+> - **Conservative**: Treat ETH fees spent in this instance as taxable sales, as if you had spent ETH on a good or service.
+> - **Medium**: Claim the Ethereum spent on fees as removed from your holdings, but don't recognize a capital gain or loss.
+> - **Aggressive**: Claim ETH as a sale for 0 USD, claiming a capital loss on ETH spent. You could also potentially add ETH transfer fees to your cost basis. However, the IRS could argue that these transfers were not necessary for the subsequent ETH sale to take place, thus this is a more contentious tax standpoint.
+>
+> (https://tokentax.co/blog/are-ethereum-gas-fees-tax-deductible)
+
+## CoinTracker
+
+> Gas fees on transfers can be added back to the basis of the token.
+>
+> (https://www.cointracker.io/blog/how-to-claim-tax-benefits-on-your-cryptocurrency-gas-fees/)
+
+## MetricsCPA (CPA from Reddit)
+
+> **Q:** Would you also add transfer fees to the cost basis ? e.g. when transferring a coin from an exchange to a wallet.
+> 
+> **A:** Yes, its reasonable to include these, as they are part of your costs.
+>
+> (https://www.reddit.com/r/BitcoinCA/comments/jwmn6h/comment/gcsn76a/?utm_source=share&utm_medium=web2x&context=3)
+
+# Foreign income
+
+Here, revenue from crypto is considered foreign income, because it is localized on a global ledger (the blockchain), so not technically in Canada. For this reason, if one's total acquisition cost has been greater than \$100,000 at any point during the tax year, one needs to fill form T1135.
+
+## Documentation
+
+## Taxtips.ca
+
+> It is probably wise to report your cryptocurrency on a T1135, if it puts you over the \$100,000, according to an article by Jamie Golombek, CPA, CA, CFP, CLU, TEP. It could be considered intangible property located outside Canada. It doesn't cost anything to report it, and would save very expensive penalties that would be incurred if it is not reported but later deemed by CRA to be reportable.
+>
+> (https://www.taxtips.ca/filing/foreign-asset-reporting.htm)
+
+## Intuit
+
+> The CRA views bitcoin as "specified foreign property" under Section 233.3 of the Income Tax Act.
+>
+> (https://quickbooks.intuit.com/ca/resources/taxes/how-to-claim-cryptocurrency-on-your-income-tax-in-canada/)
+
+# Taxable income
+
+Here, revenue from interest or staking (as well as mining) is considered taxable income because they are similar in nature to revenue from investment interest (like at the bank).
+
+Airdrops, rewards, referrals, promos, are considered a purchase at 0\$ ACB (including Shakepay, Brave, and Presearch).
+
+Similarly to credit card cashback, discounts are considered a purchase at FMV (fair market value) at the time of reception, but not as income and they do not trigger a tax event. This includes certain services from Crypto.com:
+
+-   Prepaid card cashback (including Spotify, Netflix, Amazon Prime "reimbursements")
+-   "Pay" service for rewards on:
+    -   topping-up phones
+    -   internet purchases
+    -   gift card purchases
+    -   (rewards for transferring CRO to a friend is not considered rebate, but is still not taxable income like other rewards)
+-   Exchange discount/rewards on trading when staking CRO on the exchange (same with Binance, etc.)
+
+## Documentation
+
+## Yahoo Finance
+
+> The majority of Canadian consumers don't have to pay taxes on their credit card rewards. As long as you're earning points, miles, or cash back for personal purchases (i.e., not for business purchases), the CRA will look at them as discounts and coupons, not income. Much like you don't report savings from grocery coupons, you won't report your credit card rewards on your tax filing.
+>
+> (https://ca.style.yahoo.com/credit-card-rewards-taxable-183034394.html)
+
+## CRA
+
+> Is it business income or capital gain? The income tax treatment for cryptocurrency [...] is different depending on whether their [...] activities are a personal activity (a hobby) or a business activity. [...] If a hobby is pursued in a *sufficiently commercial and businesslike way*, it can be considered a business activity and will be taxed as such.
+>
+> (https://www.canada.ca/en/revenue-agency/programs/about-canada-revenue-agency-cra/compliance/digital-currency/cryptocurrency-guide.html)
+
+## Koinly
+
+> Some countries like Canada and Germany see receiving an airdrop as a tax free event, but this is the exception rather than the rule.... The Canada Revenue Agency doesn't view airdrops as a type of income.
+> (https://koinly.io/blog/crypto-airdrop-tax)
+
+## CoinTracker
+
+> For airdrops and hard forks, unlike the US where guidance is unclear, in Canada the cost basis is zero for these coins. Therefore when the coins are disposed the entire proceeds are considered capital gains (for individuals) or income (for businesses).
+>
+> https://support.cointracker.io/hc/en-us/articles/4413071347857
+
+## CoinPanda
+
+> In most cases, a business activity needs to involve repetitive actions over time. ... If your mining is just a personal hobby, you will only pay capital gains tax when you later sell (dispose of) the received coins. Because you didn't pay anything for the coins originally, the cost basis should be considered as zero so that your capital gains are equal to the market value (in CAD) at the time when you sell the coins in the future. ... The Canadian Revenue Agency has not released specific guidance for staking of cryptocurrency. Because staking is similar in nature to mining of cryptocurrencies, the safest approach is to treat received coins from staking in a similar fashion to mining. ...
+>
+> The CRA has not issued specific guidance to the tax treatment of cryptocurrency airdrops, but a safe approach is to pay capital gains tax when you later decide to sell the coins. Similar to crypto received from mining, you should assume a cost basis equal to zero because you did not pay anything to acquire the coins.
+>
+> (https://coinpanda.io/guides/crypto-taxes-canada/)
+
+## MetricsCPA (CPA from Reddit)
+
+> **Q:** How to treat Shakepay sats?
+>
+> **A:** In that case, it would be a cost basis of 0. Shaking your phone does not constitute earning income. So say you sell it all for \$10, that \$10 is added to your income at \$5 (cap gains 50%) and then taxed. It would be a sale for \$10 with a cost basis of 0.
+> 
+> (https://www.reddit.com/r/BitcoinCA/comments/jwmn6h/comment/gi3fe3l/?utm_source=share&utm_medium=web2x&context=3)
+
+## TSBCPA (CPA from Reddit)
+
+> I would love to be able to shed some further light on this topic, however, there are a few factors at play that make it difficult to do so. Currently, these areas have not received any specific CRA guidance so I refrain from providing any general guidance on these matters. The reasoning for this is that there can be risks involved depending on how aggressive or conservative you are with reporting the crypto received. Treating it as income when received is usually the conservative bet; adding it with a cost base of \$0 can be more aggressive.
+>
+> There will be a ton of different/varying information out there on this from individuals and accountants. [...] In general, if you want to remain very conservative (which may not always be the best approach), then treating things as income when received will achieve this. For staking rewards - we generally always recommend treating it as income when received.
+>
+> (https://www.reddit.com/r/BitcoinCA/comments/tvg6gc/accountants_of_reddit_please_help_clarify)
+
+# Interest expense on money borrowed to purchase investments
+
+Generally, interest expense on money borrowed to purchase investments for the purpose of gaining or producing income is tax-deductible.
+
+## Documentation
+
+## Taxtips.ca
+
+> Interest and other deductible carrying charges are claimed as a deduction from income on line 22100 (was line 221) of the personal income tax return, after completion of Schedule 4 (federal).
+>
+> (https://www.taxtips.ca/personaltax/investing/interest-expense-on-money-borrowed-to-purchase-investments.htm)
+
+## CRA
+
+> The flexible approach to tracing/linking borrowed money to eligible uses cannot be applied to the repayment of borrowed money where a single borrowing account (such as a **line of credit**, mortgage or loan) is used for eligible and ineligible purposes. In the CRA's view, any repayment of the principal portion of a borrowing would reduce the portions of the line of credit, mortgage or loan that are used for both eligible and ineligible purposes.
+>
+> The individual cannot allocate the repayment specifically to the ineligible portion of the borrowing. Instead, applying the original eligible use percentage to the balance, interest on \$32,000 of the borrowed money (being 40% of \$80,000) will be deductible.
+>
+> (https://www.canada.ca/en/revenue-agency/services/tax/technical-information/income-tax/income-tax-folios-index/series-3-property-investments-savings-plans/series-3-property-investments-savings-plan-folio-6-interest/income-tax-folio-s3-f6-c1-interest-deductibility.html)
+
+</font>
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$
+
+$~$

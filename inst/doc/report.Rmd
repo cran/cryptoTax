@@ -1,0 +1,149 @@
+---
+title: "Generate a Full Tax Report"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Generate a Full Tax Report}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r knitr, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(cryptoTax)
+```
+
+It is possible to generate a full tax report with `cryptoTax`. This vignette shows how.
+
+# Preparing your list of coins
+
+First, you want to fetch the price information for all your coins.
+
+> *Note*: Some exchanges don't require fetching this information from coinmarketcap because they already give the CAD value of your trades or revenues. However, this is still necessary to get the current value, and therefore your unrealized gains and losses.
+
+```{r list.prices, eval=FALSE}
+library(cryptoTax)
+
+my.coins <- c("BTC", "ETH", "ADA", "CRO", "LTC", "USDC", "BUSD", "CEL", "PRE", "ETHW", "BAT")
+list.prices <- prepare_list_prices(coins = my.coins, start.date = "2021-01-01")
+
+```
+
+> *Note*: When you have a lot of coins, it can be better to split the calls to coinmarketcap in two or more and row bind the results with `rbind()` because otherwise we risk getting an error from the coinmarketcap API. See below for an example:
+
+```{r list.prices2}
+library(cryptoTax)
+
+my.coins1 <- c("BTC", "ETH", "ADA", "CRO", "LTC", "USDC")
+my.coins2 <- c("BUSD", "CEL", "PRE", "ETHW", "BAT")
+
+list.prices1 <- prepare_list_prices(coins = my.coins1, start.date = "2021-01-01")
+list.prices2 <- prepare_list_prices(coins = my.coins2, start.date = "2021-01-01")
+
+list.prices <- rbind(list.prices1, list.prices2)
+```
+
+# Formatting your data
+
+Below we use a shortcut for this vignette to format all exchanges quickly with `lapply()` and the `format_detect()` function. However, you can use the dedicated functions should you wish so.
+
+```{r format exchanges, message=FALSE}
+exchanges <- list(
+  data_adalite, data_binance, data_binance_withdrawals, data_blockfi, data_CDC, 
+  data_CDC_exchange_rewards, data_CDC_exchange_trades, data_CDC_wallet, data_celsius,
+  data_coinsmart, data_exodus, data_gemini, data_newton, data_pooltool, data_presearch,
+  data_shakepay, data_uphold)
+
+formatted.data <- format_detect(exchanges)
+```
+
+# Adjusted Cost Base
+
+Next, we can begin processing that data. We start by formatting the [Adjusted Cost Base (ACB)](https://cryptoltruist.github.io/cryptoTax/articles/ACB.html) of each transaction. The `formatted.ACB` is going to be our core object with which we will be working for all future steps.
+
+```{r format_ACB}
+formatted.ACB <- format_ACB(formatted.data)
+```
+
+> Per default, `format_ACB()` considers taxable revenue (and not aquisition at $0 ACB) the following transaction types: staking, interests, and mining. If you want a different treatment for those transactions (or other types of revenues like cashback and airdrops), use the `as.revenue` argument of `format_ACB()`.
+
+We get a warning that there are negative values in some places, therefore that we might have forgotten some transactions. The `check_missing_transactions()` function makes it easy to identify which transactions (and therefore which coin) are concerned with this.
+
+```{r check_missing_transactions}
+check_missing_transactions(formatted.ACB)
+```
+
+Next, we might want to make sure that we have downloaded the latest files for each exchange. If you shake your phone every day for sats, or you receive daily weekly payments from staking, you would expect the latest date to be recent. For this we use the `get_latest_transactions()` function.
+
+```{r get_latest_transactions}
+get_latest_transactions(formatted.ACB)
+```
+
+At this stage, it is possible to list transactions by coin, if you have few transactions. The output can be very long as soon as you have many transactions however, so we will not be showing it here, but you can have a look at the `listby_coin()` function and its example.
+
+# Full Tax Report
+
+Next, we need to calculate a few extra bits of information for the final report. Fortunately, the `prepare_report()` function makes this easy for us.
+
+```{r prepare_report, message=FALSE}
+report.info <- prepare_report(formatted.ACB, 
+                              tax.year = 2021, 
+                              local.timezone = "America/Toronto",
+                              list.prices = list.prices)
+```
+
+The `report.info` object is a list containing all the different info (tables, figures) necessary for the final report. They can be accessed individually too:
+
+```{r report.info names}
+names(report.info)
+```
+
+Finally, to generate the report, we use `print_report()` with the relevant tax year, name of the individual, and the `report.info` object we just created:
+
+```{r print_report, eval = FALSE}
+print_report(tax.year = "2021", 
+             name = "Mr. Cryptoltruist", 
+             report.info)
+```
+
+```{r report prep, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+tax.year <- "2021"
+name <- "Mr. Cryptoltruist"
+person.name <- paste("Name:", name)
+total.income.numeric <- dplyr::last(report.info$table.revenues$staking) +
+  dplyr::last(report.info$table.revenues$interests)
+total.income <- format_dollars(total.income.numeric)
+total.cost <- report.info$report.summary$Amount[5]
+gains <- report.info$report.summary$Amount[2]
+gains.numeric <- format_dollars(gains, "numeric")
+gains.50 <- format_dollars(gains.numeric * 0.5)
+losses <- report.info$report.summary$Amount[3]
+net <- report.info$report.summary$Amount[4]
+net.numeric <- format_dollars(net, "numeric")
+net.50 <- format_dollars(net.numeric * 0.5)
+total.tax <- format_dollars(net.numeric * 0.5 + total.income.numeric)
+sup.losses.total <- report.info$sup.losses[nrow(report.info$sup.losses), "sup.loss"]
+tot.losses <- format_dollars(as.numeric(losses) - sup.losses.total)
+tot.sup.loss <- as.numeric(tot.losses) + sup.losses.total
+if (tax.year == "all") {
+  tax.year <- "all years"
+} else {
+  tax.year <- tax.year
+}
+
+```
+
+---
+
+# Full Crypto Tax Report for Tax Year `r tax.year`
+
+`r person.name`
+
+Date: `r format(Sys.time(), '%c')`
+
+```{r print_report child, child = system.file("full_report.Rmd", package = "cryptoTax")}
+
+```
