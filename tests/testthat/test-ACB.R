@@ -60,4 +60,3 @@ test_that("Example #10 - Koinly", {
   expect_snapshot(ACB(data_koinly, sup.loss = FALSE))
   expect_snapshot(ACB(data_koinly))
 })
-

@@ -12,8 +12,7 @@
 #' @return A data frame of exchange transactions, formatted for further processing.
 #' @export
 #' @examples
-#' formatted.CDC <- format_CDC(data_CDC)
-#' formatted.CDC
+#' format_CDC(data_CDC)
 #' @importFrom dplyr %>% rename mutate rowwise filter select arrange bind_rows case_when
 #' @importFrom rlang .data
 
@@ -63,8 +62,15 @@ format_CDC <- function(data) {
     )
 
   # Convert USD value to CAD ####
-  data <- data %>%
-    cryptoTax::USD2CAD() %>%
+  data.tmp <- data %>%
+    cryptoTax::USD2CAD()
+  
+  if (is.null(data.tmp)) {
+    message("Could not fetch exchange rates from the exchange rate API.")
+    return(NULL)
+  }
+  
+   data <- data.tmp %>%
     mutate(
       CAD.rate = ifelse(
         .data$Native.Currency == "USD",

@@ -34,8 +34,15 @@ format_celsius <- function(data) {
   # UTC confirmed
 
   # Convert USD value to CAD
-  data <- data %>%
-    cryptoTax::USD2CAD() %>%
+  data.tmp <- data %>%
+    cryptoTax::USD2CAD()
+  
+  if (is.null(data.tmp)) {
+    message("Could not fetch exchange rates from the exchange rate API.")
+    return(NULL)
+  }
+  
+  data <- data.tmp %>%
     mutate(total.price = .data$USD.Value * .data$CAD.rate)
 
   # Create a "earn" object

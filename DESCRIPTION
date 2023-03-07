@@ -1,11 +1,11 @@
 Package: cryptoTax
 Title: Report Crypto Taxes (Canada Only)
-Version: 0.0.2
+Version: 0.0.3
 URL: https://cryptoltruist.github.io/cryptoTax/
 BugReports: https://github.com/cryptoltruist/cryptoTax/issues
 Authors@R: 
-    person(given = "Mr.",
-           family = "Cryptoltruist",
+    person(given = "Steve",
+           family = "Wong",
            role = c("aut", "cre"),
            email = "mr.cryptoltruist@gmail.com")
 Description: Helps calculate crypto taxes in R. First, by allowing 
@@ -31,8 +31,8 @@ Depends: R (>= 2.10)
 VignetteBuilder: knitr
 Language: en-US
 NeedsCompilation: no
-Packaged: 2023-02-18 01:49:19 UTC; coding
-Author: Mr. Cryptoltruist [aut, cre]
-Maintainer: Mr. Cryptoltruist <mr.cryptoltruist@gmail.com>
+Packaged: 2023-03-06 15:42:26 UTC; coding
+Author: Steve Wong [aut, cre]
+Maintainer: Steve Wong <mr.cryptoltruist@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-02-20 11:30:03 UTC
+Date/Publication: 2023-03-07 08:00:14 UTC

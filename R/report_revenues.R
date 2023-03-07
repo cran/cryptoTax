@@ -100,7 +100,7 @@ report_revenues <- function(formatted.ACB, tax.year = "all",
   table <- table %>%
     rename(date.last = "date") %>%
     arrange(desc(.data$total.revenues)) %>%
-    mutate(across("total.revenues", round, 2)) %>%
+    mutate(across("total.revenues", \(x) round(x, 2))) %>%
     slice(1) %>%
     as.data.frame()
 
@@ -109,9 +109,9 @@ report_revenues <- function(formatted.ACB, tax.year = "all",
     add_row(
       exchange = "total",
       date.last = max(table$date.last),
-      summarize(., across(tidyselect::where(is.numeric), sum, na.rm = TRUE))
+      summarize(., across(tidyselect::where(is.numeric), \(x) sum(x, na.rm = TRUE)))
     ) %>%
     mutate(currency = "CAD",
-           across(tidyselect::where(is.numeric), round, 2))
+           across(tidyselect::where(is.numeric), \(x) round(x, 2)))
   table
 }

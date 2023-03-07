@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Mr. Cryptoltruist \email{mr.cryptoltruist@gmail.com}
+\strong{Maintainer}: Steve Wong \email{mr.cryptoltruist@gmail.com}
 
 }
 \keyword{internal}

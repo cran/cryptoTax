@@ -25,6 +25,5 @@ certainly inaccurate. You will have to make a manual correction for the
 withdrawal fees after using \code{format_CDC}, on the resulting dataframe.
 }
 \examples{
-formatted.CDC <- format_CDC(data_CDC)
-formatted.CDC
+format_CDC(data_CDC)
 }

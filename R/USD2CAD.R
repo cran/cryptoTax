@@ -13,16 +13,32 @@
 #' @importFrom rlang .data
 
 USD2CAD <- function(data, conversion = "USD", currency = "CAD") {
+  check_internet()
   if (!exists("USD2CAD.table")) {
-    USD2CAD.table <- priceR::historical_exchange_rates(
-      conversion,
-      to = currency, start_date = "2020-01-01", end_date = Sys.Date()
-    ) %>%
-      mutate(date = as.Date(.data$date))
+    tryCatch(
+      expr = {
+        USD2CAD.table <- priceR::historical_exchange_rates(
+          conversion,
+          to = currency, start_date = "2020-01-01", end_date = Sys.Date()
+        )
+      },
+      error = function(e) {
+        message("Could not fetch exchange rates from the exchange rate API.")
+        return(NULL)},
+      warning = function(w) {
+        return(NULL)
+      })
+    
+    if (!exists("USD2CAD.table")) {
+      message("Could not fetch exchange rates from the exchange rate API.")
+      return(NULL)
+    }
+    
+    USD2CAD.table <- mutate(USD2CAD.table, date = as.Date(.data$date))
     names(USD2CAD.table)[2] <- "CAD.rate"
     USD2CAD.table <<- USD2CAD.table
   }
-
+  
   data <- data %>%
     mutate(
       date2 = date,

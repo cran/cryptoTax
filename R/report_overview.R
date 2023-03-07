@@ -119,7 +119,7 @@ report_overview <- function(formatted.ACB, today.data = TRUE, tax.year = "all",
       ) %>%
       group_by(.data$currency) %>%
       arrange(desc(.data$total.cost), desc(.data$cost.share), desc(.data$total.quantity)) %>%
-      mutate(across("cost.share":"unrealized.gains", round, 2)) %>%
+      mutate(across("cost.share":"unrealized.gains", \(x) round(x, 2))) %>%
       as.data.frame(full)
 
     full <- full %>%
@@ -132,8 +132,7 @@ report_overview <- function(formatted.ACB, today.data = TRUE, tax.year = "all",
             "total.cost":"net",
             "value.today":"unrealized.net"
           ),
-          sum,
-          na.rm = TRUE
+          \(x) sum(x, na.rm = TRUE)
         ))
       )
   }
@@ -150,7 +149,7 @@ report_overview <- function(formatted.ACB, today.data = TRUE, tax.year = "all",
       ) %>%
       group_by(.data$currency) %>%
       arrange(desc(.data$total.cost), desc(.data$cost.share), desc(.data$total.quantity)) %>%
-      mutate(across("cost.share":"net", round, 2),
+      mutate(across("cost.share":"net", \(x) round(x, 2)),
         currency2 = .data$currency
       ) %>%
       as.data.frame(full)
@@ -161,8 +160,7 @@ report_overview <- function(formatted.ACB, today.data = TRUE, tax.year = "all",
         currency = "Total",
         currency2 = "Total",
         summarize(., across(c("total.cost":"net"),
-          sum,
-          na.rm = TRUE
+          \(x) sum(x, na.rm = TRUE)
         ))
       )
   }

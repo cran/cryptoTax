@@ -25,9 +25,7 @@ prepare_list_prices <- function(coins,
                                 start.date,
                                 end.date = lubridate::now("UTC"),
                                 force = FALSE) {
-  if (isFALSE(curl::has_internet())) {
-    stop("Attention: You need Internet access to fetch historical prices.")
-  }
+  check_internet()
   
   # List all active coins
   if (!exists("coins.list")) {
@@ -75,15 +73,25 @@ prepare_list_prices <- function(coins,
       stringr::str_split("-", simplify = TRUE) %>%
       paste(collapse = "")
 
-    coin_hist <- crypto2::crypto_history(
-      coin_list = coins.temp,
-      start_date = start.date,
-      end_date = end.date,
-      convert = "CAD",
-      sleep = 0, # changed from 60
-      finalWait = FALSE
-    ) # changed from TRUE
-
+    tryCatch(
+      expr = {
+        coin_hist <- crypto2::crypto_history(
+          coin_list = coins.temp,
+          start_date = start.date,
+          end_date = end.date,
+          convert = "CAD",
+          sleep = 0, # changed from 60
+          finalWait = FALSE # changed from TRUE
+        )
+      },
+      error = function(e) {
+        message(c("Could not fetch crypto prices from the CoinMarketCap API. ",
+                  "Please try again, perhaps with fewer coins."))
+        return(NULL)},
+      warning = function(w) {
+        return(NULL)
+        })
+    
     coin_hist <<- coin_hist
 
     if (!"symbol" %in% names(coin_hist)) {

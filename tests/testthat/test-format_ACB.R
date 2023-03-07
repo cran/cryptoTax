@@ -1,3 +1,5 @@
+testthat::skip_on_cran()
+
 options(scipen = 999)
 
 # Prepare list of coins ####

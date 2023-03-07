@@ -18,6 +18,7 @@
 #' @importFrom rlang .data
 
 match_prices <- function(data, my.coins = NULL, start.date = "2021-01-01", list.prices = NULL, force = FALSE) {
+  check_internet()
   
   all.data <- data
 
