@@ -25,18 +25,35 @@ prepare_list_prices <- function(coins,
                                 start.date,
                                 end.date = lubridate::now("UTC"),
                                 force = FALSE) {
-  check_internet()
+  if (isFALSE(curl::has_internet())) {
+    message("This function requires Internet access.")
+    return(NULL)
+  }
   
   # List all active coins
   if (!exists("coins.list")) {
-    coins.list <- crypto2::crypto_list(only_active = TRUE)
+  tryCatch(
+    expr = {coins.list <- crypto2::crypto_list(only_active = TRUE)},
+    error = function(e) {
+      message("Could not reach the CoinMarketCap API at this time")
+      return(NULL)
+      },
+    warning = function(w) {
+      return(NULL)
+    })
+    
+    if (!exists("coins.list")) {
+      message("Could not reach the CoinMarketCap API at this time")
+      return(NULL)
+    }
+    
     # Remove some bad coins from list (which share the same name with NANO or EFI for example)
     coins.list <- coins.list %>%
       filter(!(.data$slug %in% c("xeno-token", "earnablefi")))
-
+    
     coins.list <<- coins.list
   }
-
+  
   if (isTRUE(force) || !exists("list.prices")) {
     # Define coins from our merged data set
 

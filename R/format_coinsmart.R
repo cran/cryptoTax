@@ -68,6 +68,11 @@ format_coinsmart <- function(data, list.prices = NULL, force = FALSE) {
   
   data <- match_prices(data, list.prices = list.prices, force = force)
   
+  if (is.null(data)) {
+    message("Could not reach the CoinMarketCap API at this time")
+    return(NULL)
+  }
+  
   if (any(is.na(data$spot.rate))) {
     warning("Could not calculate spot rate. Use `force = TRUE`.")
   }

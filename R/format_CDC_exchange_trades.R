@@ -79,6 +79,11 @@ format_CDC_exchange_trades <- function(data, list.prices = NULL, force = FALSE) 
 
   data.fees <- cryptoTax::match_prices(data.fees, list.prices = list.prices, force = force)
   
+  if (is.null(data.fees)) {
+    message("Could not reach the CoinMarketCap API at this time")
+    return(NULL)
+  }
+  
   if (any(is.na(data$spot.rate))) {
     warning("Could not calculate spot rate. Use `force = TRUE`.")
   }
@@ -162,6 +167,11 @@ format_CDC_exchange_trades <- function(data, list.prices = NULL, force = FALSE) 
 
   # Determine spot rate and value of coins
   data <- cryptoTax::match_prices(data, list.prices = list.prices, force = force)
+  
+  if (is.null(data)) {
+    message("Could not reach the CoinMarketCap API at this time")
+    return(NULL)
+  }
 
   data <- data %>%
     mutate(total.price = ifelse(is.na(.data$total.price),

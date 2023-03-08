@@ -21,7 +21,7 @@
 report_summary <- function(formatted.ACB, today.data = TRUE, tax.year = "all",
                            local.timezone = Sys.timezone(), list.prices = NULL, force = FALSE) {
   if (today.data == TRUE & curl::has_internet() == FALSE) {
-    warning("Attention: You need Internet access to use the `today.data == TRUE` argument. The today.data argument has been set to `FALSE` automatically.")
+    message("You need Internet access to use the `today.data == TRUE` argument. The today.data argument has been set to `FALSE` automatically.")
     today.data <- FALSE
   }
 

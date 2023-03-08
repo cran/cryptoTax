@@ -13,7 +13,11 @@
 #' @importFrom rlang .data
 
 USD2CAD <- function(data, conversion = "USD", currency = "CAD") {
-  check_internet()
+  if (isFALSE(curl::has_internet())) {
+    message("This function requires Internet access.")
+    return(NULL)
+  }
+  
   if (!exists("USD2CAD.table")) {
     tryCatch(
       expr = {

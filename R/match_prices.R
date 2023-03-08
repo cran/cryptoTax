@@ -18,7 +18,10 @@
 #' @importFrom rlang .data
 
 match_prices <- function(data, my.coins = NULL, start.date = "2021-01-01", list.prices = NULL, force = FALSE) {
-  check_internet()
+  if (isFALSE(curl::has_internet())) {
+    message("This function requires Internet access.")
+    return(NULL)
+  }
   
   all.data <- data
 
@@ -52,6 +55,12 @@ match_prices <- function(data, my.coins = NULL, start.date = "2021-01-01", list.
     }
     
     list.prices <- prepare_list_prices(coins = my.coins, start.date = start.date, force = force)
+    
+    if (is.null(list.prices)) {
+      message("Could not reach the CoinMarketCap API at this time")
+      return(NULL)
+    }
+    
     list.prices <<- list.prices
   }
 

@@ -178,6 +178,11 @@ format_gemini <- function(data, list.prices = NULL, force = FALSE) {
   # Determine spot rate and value of coins
   data <- cryptoTax::match_prices(data, list.prices = list.prices, force = force)
 
+  if (is.null(data)) {
+    message("Could not reach the CoinMarketCap API at this time")
+    return(NULL)
+  }
+  
   data <- data %>%
     mutate(total.price = ifelse(is.na(.data$total.price),
       .data$quantity * .data$spot.rate,
