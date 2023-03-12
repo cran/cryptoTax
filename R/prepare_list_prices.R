@@ -108,12 +108,18 @@ prepare_list_prices <- function(coins,
       warning = function(w) {
         return(NULL)
         })
-    
-    coin_hist <<- coin_hist
 
-    if (!"symbol" %in% names(coin_hist)) {
-      stop("'coin_hist' could not fetch correctly. Please try again.")
+    if (!exists("coin_hist")) {
+      message("'coin_hist' could not fetch correctly. Please try again.")
+      return(NULL)
     }
+    
+    if (!"symbol" %in% names(coin_hist)) {
+      message("'coin_hist' could not fetch correctly. Please try again.")
+      return(NULL)
+    }
+        
+    coin_hist <<- coin_hist
     
     list.prices <- coin_hist %>%
       rowwise() %>%

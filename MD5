@@ -1,7 +1,7 @@
-c09c9de1757b3bb84ea95314b016005f *DESCRIPTION
+55b4770e1311ad657cca44537195a2e6 *DESCRIPTION
 994a1db53bd0ae8ac70d8ae0ffcc7a5b *LICENSE
 9884319d9ea08dde164e5781527762a8 *NAMESPACE
-e7cf82683b9b3c86770bd68ce23a9e23 *NEWS.md
+7d2c25d5703eb33f7de64340cd1e0c96 *NEWS.md
 a6741fa229cfc47aa0c0e6a0cc13e266 *R/ACB.R
 cbd9825911715f4776a31ca8311531f7 *R/USD2CAD.R
 ee4eb6477264015aeb81ddc63e6dbe9f *R/check_missing_transactions.R
@@ -59,7 +59,7 @@ d7ba7cd34b8320c5d4aab1b67d447029 *R/get_sup_losses.R
 79316e4159745d0631a36acb5036c8ec *R/listby_coin.R
 d8d1cf9b57bc64a6765fa4282d2e4972 *R/match_prices.R
 6fb40cc6794b56b57e9a3ebb74a0ed9c *R/merge_exchanges.R
-b019597de5b4a9c83f779593222d2127 *R/prepare_list_prices.R
+d5a8e28e521dd40873edcd0d71ff5a91 *R/prepare_list_prices.R
 f2d776a82086ba1ef8de2a205d86a739 *R/prepare_report.R
 5ebea030980acf569d7abe2831c50381 *R/print_report.R
 bfd0a2e068a5c891f36c669cf313ddc4 *R/report_overview.R
@@ -111,7 +111,7 @@ e8c98e39c7a9fcb4b53cb90eb37e61cc *inst/doc/references.R
 9bee20526d83f6a3665c4fcf5eb0a88b *inst/doc/references.html
 651526554eeff0b1d84c5432eadc190b *inst/doc/report.R
 e564292776005ea2a8ac3889e7212a80 *inst/doc/report.Rmd
-95118df1390c0c29e7a2445683c6a2dd *inst/doc/report.html
+43867012df92c3193888be7984440ae6 *inst/doc/report.html
 79c8ee5822a517e368e307797c52c368 *inst/full_report.Rmd
 421f5f3ce1914099bfbb5876cf03b466 *man/ACB.Rd
 0afafddf10981596f292d04a51256c58 *man/USD2CAD.Rd
